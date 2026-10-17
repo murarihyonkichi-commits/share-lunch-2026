@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>あなたは最高傑作品 ランチシェア会</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* Layout: 写真のヒーロー → 中央の導入文 → 2×2の情報タイル → 大きな申込ボタン → 見どころカード → 日程・場所 → 主催。画面下に申込バーを固定。 */
+:root {
+  --bg: #fcf4f1;
+  --surface: #ffffff;
+  --tile: #fff8f6;
+  --blush: #f6e2df;
+  --fg: #4a3830;
+  --muted: #8a736a;
+  --accent: #cf6f73;
+  --accent-deep: #a94a52;
+  --accent-grad-a: #d98085;
+  --accent-grad-b: #b4565c;
+  --on-accent: #ffffff;
+  --gold: #a5864a;
+  --line: #ecd9d3;
+  --shadow: 0 8px 24px rgba(120, 60, 66, .10);
+  --font: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1e1718; --surface: #2a2022; --tile: #33292b; --blush: #3a2a2c; --fg: #f4e9e5; --muted: #c9b0a7;
+    --accent: #e48f93; --accent-deep: #f0a0a4; --accent-grad-a: #d97a80; --accent-grad-b: #b65b61; --on-accent: #ffffff;
+    --gold: #d3b57a; --line: #45342f; --shadow: 0 8px 24px rgba(0, 0, 0, .35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1e1718; --surface: #2a2022; --tile: #33292b; --blush: #3a2a2c; --fg: #f4e9e5; --muted: #c9b0a7;
+  --accent: #e48f93; --accent-deep: #f0a0a4; --accent-grad-a: #d97a80; --accent-grad-b: #b65b61; --on-accent: #ffffff;
+  --gold: #d3b57a; --line: #45342f; --shadow: 0 8px 24px rgba(0, 0, 0, .35);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 16px; line-height: 1.85; padding-bottom: 96px; }
+h1, h2, h3, p, dl, dd, figure, ol, ul { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+.wrap {
+  max-width: 720px; margin-inline: auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+
+/* hero */
+.hero {
+  position: relative; color: #fff; text-align: center;
+  background: linear-gradient(180deg, rgba(60, 28, 34, .38) 0%, rgba(60, 28, 34, .72) 100%), url("audience.jpg") center 35% / cover no-repeat, #6a3a40;
+  padding-block: 72px 56px;
+}
+.pill {
+  display: inline-block; border: 1px solid rgba(255, 255, 255, .7); border-radius: 999px;
+  padding: 4px 18px; font-size: 12px; letter-spacing: .16em; font-weight: 700;
+}
+.hero .sub { margin-top: 22px; font-size: 14px; letter-spacing: .08em; opacity: .95; }
+.hero h1 { margin-top: 8px; font-size: clamp(30px, 8vw, 46px); line-height: 1.35; font-weight: 900; text-wrap: balance; text-shadow: 0 2px 16px rgba(0,0,0,.35); }
+.hero h1 span { color: #ffd9d6; }
+.hero .when { margin-top: 18px; font-size: 15px; font-weight: 700; letter-spacing: .06em; }
+
+/* intro */
+.intro { padding-block: 36px 8px; text-align: center; }
+.intro p { max-width: 32em; margin-inline: auto; color: var(--muted); }
+.people { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+.people span { background: var(--blush); border-radius: 999px; padding: 6px 16px; font-size: 14px; font-weight: 700; color: var(--accent-deep); }
+
+/* info tiles */
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 30px; }
+.tile { background: var(--surface); border-radius: 18px; box-shadow: var(--shadow); padding: 12px; display: grid; gap: 8px; }
+.tile .label { background: var(--tile); border: 1px solid var(--line); border-radius: 12px; text-align: center; font-size: 12px; letter-spacing: .14em; color: var(--accent-deep); font-weight: 700; padding: 6px 4px; }
+.tile .value { background: var(--tile); border: 1px solid var(--line); border-radius: 12px; text-align: center; padding: 12px 6px; line-height: 1.45; }
+.tile .value b { display: block; font-size: 20px; font-weight: 900; }
+.tile .value small { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* CTA */
+.cta { margin-top: 22px; display: block; text-decoration: none; text-align: center; color: var(--on-accent);
+  background: linear-gradient(135deg, var(--accent-grad-a), var(--accent-grad-b)); border-radius: 18px; padding: 20px 16px; box-shadow: 0 12px 28px rgba(160, 70, 78, .32);
+  transition: transform .15s ease, filter .15s ease; }
+.cta:hover { transform: translateY(-2px); filter: brightness(1.04); }
+.cta strong { display: block; font-size: 20px; letter-spacing: .08em; }
+.cta span { display: block; margin-top: 4px; font-size: 13px; opacity: .92; }
+@media (prefers-reduced-motion: reduce) { .cta { transition: none; } .cta:hover { transform: none; } }
+
+/* sections */
+section { padding-block: 44px 8px; }
+.sec-title { text-align: center; margin-bottom: 24px; }
+.sec-title h2 { font-size: clamp(22px, 5vw, 26px); font-weight: 900; line-height: 1.45; text-wrap: balance; }
+.sec-title .en { margin-top: 6px; display: inline-flex; align-items: center; gap: 12px; font-size: 12px; letter-spacing: .2em; color: var(--accent-deep); font-weight: 700; }
+.sec-title .en::before, .sec-title .en::after { content: ""; width: 28px; height: 1px; background: var(--gold); }
+
+.main-card { background: var(--surface); border: 1.5px solid var(--accent); border-radius: 22px; box-shadow: var(--shadow); padding: 18px; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 18px; align-items: center; }
+.main-card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; border-radius: 14px; background: var(--blush); display: block; }
+.main-card .cap { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.main-card h3 { font-size: 20px; font-weight: 900; line-height: 1.5; color: var(--accent-deep); }
+.main-card p { margin-top: 10px; color: var(--muted); font-size: 15px; }
+@media (max-width: 560px) { .main-card { grid-template-columns: 1fr; } .main-card figure { max-width: 320px; margin-inline: auto; } }
+
+.points { display: grid; gap: 14px; }
+.point { background: var(--surface); border-radius: 16px; box-shadow: var(--shadow); border-left: 4px solid var(--accent); padding: 18px 20px; }
+.point .no { font-size: 12px; letter-spacing: .16em; color: var(--accent-deep); font-weight: 700; }
+.point h3 { margin-top: 4px; font-size: 18px; font-weight: 900; line-height: 1.5; }
+.point p { margin-top: 8px; color: var(--muted); font-size: 15px; }
+
+.band { margin-top: 20px; }
+.band img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; background: var(--blush); }
+.band figcaption { margin-top: 6px; font-size: 12px; color: var(--muted); text-align: center; }
+
+.sched { display: grid; gap: 12px; }
+.sched-item { background: var(--surface); border-radius: 16px; box-shadow: var(--shadow); padding: 16px 18px; display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; align-items: center; }
+.sched-item .d { font-size: 28px; font-weight: 900; color: var(--accent-deep); line-height: 1.2; font-variant-numeric: tabular-nums; }
+.sched-item .d small { font-size: 14px; color: var(--fg); margin-left: 4px; }
+.sched-item .t { font-weight: 700; }
+.sched-item .n { grid-column: 2; font-size: 13px; color: var(--muted); }
+.tag { display: inline-block; font-size: 11px; letter-spacing: .1em; font-weight: 700; padding: 1px 10px; border-radius: 999px; background: var(--blush); color: var(--accent-deep); margin-right: 8px; vertical-align: 2px; }
+.tag.zoom { background: var(--accent); color: var(--on-accent); }
+
+.flow { list-style: none; padding: 0; margin-top: 18px; display: grid; gap: 10px; background: var(--surface); border-radius: 16px; box-shadow: var(--shadow); padding: 18px 20px; }
+.flow li { display: grid; grid-template-columns: 4.6em 1fr; gap: 12px; }
+.flow time { font-weight: 700; color: var(--accent-deep); font-variant-numeric: tabular-nums; }
+.flow-title { margin-top: 22px; font-size: 16px; font-weight: 700; }
+.note { margin-top: 12px; font-size: 13px; color: var(--muted); }
+
+.facts { background: var(--surface); border-radius: 16px; box-shadow: var(--shadow); padding: 6px 20px; }
+.facts div { display: grid; grid-template-columns: 6em 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.facts div:last-child { border-bottom: 0; }
+.facts dt { color: var(--muted); font-weight: 700; font-size: 14px; }
+.facts dd small { display: block; color: var(--muted); font-size: 13px; }
+@media (max-width: 480px) { .facts div { grid-template-columns: 1fr; gap: 2px; } }
+
+.entry { background: var(--blush); border-radius: 22px; padding: 30px 22px; text-align: center; }
+.entry h3 { font-size: 22px; font-weight: 900; line-height: 1.5; text-wrap: balance; }
+.entry p { margin-top: 10px; color: var(--muted); font-size: 15px; }
+.entry .cta { margin-top: 20px; }
+.entry .note { text-align: center; }
+
+.host { background: var(--surface); border-radius: 18px; box-shadow: var(--shadow); padding: 20px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; align-items: center; }
+.host img { width: 104px; height: 104px; border-radius: 50%; object-fit: cover; object-position: center top; border: 3px solid var(--blush); background: var(--blush); display: block; }
+@media (max-width: 420px) { .host { grid-template-columns: 1fr; justify-items: start; } }
+.host .role { font-size: 12px; letter-spacing: .14em; color: var(--accent-deep); font-weight: 700; }
+.host h3 { margin-top: 4px; font-size: 20px; font-weight: 900; }
+.host p { margin-top: 6px; color: var(--muted); font-size: 15px; }
+.host a.line { display: inline-block; margin-top: 10px; color: var(--accent-deep); font-weight: 700; }
+
+footer { padding-block: 36px 12px; text-align: center; font-size: 12px; color: var(--muted); }
+
+.bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+  background: color-mix(in srgb, var(--surface) 94%, transparent); border-top: 1px solid var(--line);
+  padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  backdrop-filter: blur(8px);
+}
+.bar-in { max-width: 720px; margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.bar-txt { font-size: 13px; color: var(--muted); line-height: 1.5; min-width: 0; }
+.bar-txt b { color: var(--accent-deep); font-size: 15px; }
+.bar a { flex: none; text-decoration: none; background: linear-gradient(135deg, var(--accent-grad-a), var(--accent-grad-b)); color: var(--on-accent); font-weight: 900; border-radius: 999px; padding: 12px 22px; letter-spacing: .06em; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="pill">LUNCH &amp; ZOOM SHARE ・ 10.30 / 10.31 / 11.2</span>
+    <p class="sub">創業1周年記念講演会 その後に</p>
+    <h1>「あなたは<span>最高傑作品</span>」<br>ランチシェア会 ＆ Zoomシェア会</h1>
+    <p class="when">10月30日（金）・11月2日（月）ランチ　／　10月31日（土）Zoom</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="intro">
+    <p>講演会の感想に加えて、講演会の中で行ったワークを、もう一度ご一緒に。少人数でゆっくりお話しする会です。名古屋市内でのランチと、おうちから参加できるZoomがあります。ランチとZoomの両方にもご参加いただけます。</p>
+    <div class="people"><span>講演会の仲間と</span><span>少人数でゆっくり</span><span>両方参加もOK</span></div>
+  </div>
+
+  <div class="tiles" role="list">
+    <div class="tile" role="listitem"><div class="label">ランチ</div><div class="value"><b>10/30（金）<br>11/2（月）</b><small>11:30〜14:00</small></div></div>
+    <div class="tile" role="listitem"><div class="label">ZOOM</div><div class="value"><b>10/31（土）</b><small>20:00〜22:00</small></div></div>
+    <div class="tile" role="listitem"><div class="label">PRICE</div><div class="value"><b>ランチ代のみ</b><small>Zoomは無料</small></div></div>
+    <div class="tile" role="listitem"><div class="label">定員</div><div class="value"><b>各回5名</b><small>Zoomは定員なし</small></div></div>
+  </div>
+
+  <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSdTnBZvLDkLz8mxZlpvy0EAaDYRAW6gK1TN0wFcEdTABEP1nA/viewform" target="_blank" rel="noopener">
+    <strong>今すぐ申し込む</strong>
+    <span>ご希望の日程を選ぶだけ（複数選べます）</span>
+  </a>
+
+  <section aria-labelledby="main">
+    <div class="sec-title"><h2 id="main">講演会の続きを、<br>ことばにする時間。</h2><span class="en">THE SHARE</span></div>
+    <div class="main-card">
+      <figure>
+        <img src="stage.jpg" alt="マイクを持って、講演会でお話しするひろみ" loading="lazy" width="960" height="1200">
+        <figcaption class="cap">2026年10月10日　創業1周年記念講演会</figcaption>
+      </figure>
+      <div>
+        <h3>「自分を好きになる人生戦略」〜あなたは最高傑作品〜</h3>
+        <p>講演会で心に残ったことと、講演会の中で行ったワークを、もう一度ご一緒に。幼少期に自分が言われた言葉は何だったのか、自分の前提は何なのか。見つめてみて、お互いにシェアします。</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="points">
+    <div class="sec-title"><h2 id="points">この会の見どころ</h2><span class="en">HIGHLIGHTS</span></div>
+    <div class="points">
+      <div class="point"><p class="no">POINT 01</p><h3>講演会のワークを、もう一度ご一緒に</h3><p>幼少期に自分が言われた言葉は何だったのか。自分の前提は何なのか。ひとりで見つめるだけでなく、お互いにシェアすることで、気づきがもっと深まります。</p></div>
+      <div class="point"><p class="no">POINT 02</p><h3>各回5名だから、全員が話せる</h3><p>ランチは少人数。ひとりずつの話をじっくり聞ける、ゆったりした時間です。</p></div>
+      <div class="point"><p class="no">POINT 03</p><h3>ランチもZoomも、両方参加できる</h3><p>名古屋まで来られない方は、夜のZoomへ。無料で、どなたでもご参加いただけます。</p></div>
+    </div>
+    <figure class="band">
+      <img src="guests.jpg" alt="ステージ上で笑顔の登壇者とスタッフの皆さん" loading="lazy" width="1400" height="788">
+      <figcaption>講演会の登壇者・スタッフの皆さん</figcaption>
+    </figure>
+  </section>
+
+  <section aria-labelledby="sched">
+    <div class="sec-title"><h2 id="sched">開催スケジュール</h2><span class="en">SCHEDULE</span></div>
+    <div class="sched">
+      <div class="sched-item"><div class="d">10/30<small>金</small></div><div class="t"><span class="tag">ランチ</span>11:30〜14:00</div><div class="n">名古屋市内　／　定員5名</div></div>
+      <div class="sched-item"><div class="d">10/31<small>土</small></div><div class="t"><span class="tag zoom">ZOOM</span>20:00〜22:00</div><div class="n">オンライン　／　参加費無料　／　定員なし</div></div>
+      <div class="sched-item"><div class="d">11/2<small>月</small></div><div class="t"><span class="tag">ランチ</span>11:30〜14:00</div><div class="n">名古屋市内　／　定員5名</div></div>
+    </div>
+    <h3 class="flow-title"><span class="tag">ランチ</span>11:30〜14:00</h3>
+    <ol class="flow" aria-label="ランチの流れ">
+      <li><time>11:30</time><span>集合、ごあいさつ、乾杯、ランチ</span></li>
+      <li><time>12:15</time><span>ひとりずつ自己紹介</span></li>
+      <li><time>12:40</time><span>講演会の感想をシェア</span></li>
+      <li><time>13:00</time><span>ワーク：幼少期に自分が言われた言葉は何だったのか、自分の前提は何なのかを見つめる</span></li>
+      <li><time>13:30</time><span>ワークで気づいたことを、お互いにシェア</span></li>
+      <li><time>13:50</time><span>ひろみから一言、記念撮影</span></li>
+    </ol>
+    <h3 class="flow-title"><span class="tag zoom">ZOOM</span>20:00〜22:00</h3>
+    <ol class="flow" aria-label="Zoomの流れ">
+      <li><time>20:00</time><span>ごあいさつ、ひとりずつ自己紹介</span></li>
+      <li><time>20:30</time><span>講演会の感想をシェア</span></li>
+      <li><time>20:50</time><span>ワーク：幼少期に自分が言われた言葉は何だったのか、自分の前提は何なのかを見つめる</span></li>
+      <li><time>21:20</time><span>ワークで気づいたことを、お互いにシェア</span></li>
+      <li><time>21:50</time><span>ひろみから一言</span></li>
+    </ol>
+    <p class="note">どちらも、講演会の中で行ったワークを、もう一度ご一緒に行います。流れは予定です。参加人数に合わせて変わることがあります。</p>
+  </section>
+
+  <section aria-labelledby="info">
+    <div class="sec-title"><h2 id="info">場所・参加費</h2><span class="en">INFORMATION</span></div>
+    <dl class="facts">
+      <div><dt>ランチ</dt><dd>名古屋市内<small>お店は、お申込みいただいた方にのみお知らせします。</small></dd></div>
+      <div><dt>Zoom</dt><dd>オンライン<small>リンクは、お申込みいただいた方にお知らせします。</small></dd></div>
+      <div><dt>参加費</dt><dd>ランチ：ランチ代のみ（実費）<small>Zoom：無料</small></dd></div>
+      <div><dt>定員</dt><dd>ランチ：各回5名<small>Zoom：定員なし（どなたでもご参加いただけます）</small></dd></div>
+      <div><dt>対象</dt><dd>創業1周年記念講演会にご参加くださった皆さま</dd></div>
+    </dl>
+  </section>
+
+  <section aria-labelledby="entry">
+    <div class="entry">
+      <h3 id="entry">ご都合のよい日を、<br>選んでお申込みください。</h3>
+      <p>お名前と、ご希望の日程（複数選べます）、ランチに参加の方は食べ物のアレルギーや苦手なものを教えてください。2分ほどで入力できます。</p>
+      <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSdTnBZvLDkLz8mxZlpvy0EAaDYRAW6gK1TN0wFcEdTABEP1nA/viewform" target="_blank" rel="noopener">
+        <strong>お申込みフォームへ進む</strong>
+        <span>ランチは定員になり次第、受付を終了します</span>
+      </a>
+    </div>
+  </section>
+
+  <section aria-labelledby="host">
+    <div class="sec-title"><h2 id="host">主催</h2><span class="en">HOST</span></div>
+    <div class="host">
+      <img src="profile.jpg" alt="やすむらひろみのプロフィール写真" width="240" height="240" loading="lazy">
+      <div>
+        <p class="role">主催</p>
+        <h3 id="host-name">やすむら ひろみ</h3>
+        <p>ここからフルネス株式会社　／　心と身体を満たす体質改善コーチ</p>
+        <a class="line" href="https://lin.ee/8P0Xq7n" target="_blank" rel="noopener">ご質問は、公式LINEからどうぞ</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© ここからフルネス株式会社</footer>
+</main>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="bar-txt"><b>ランチ 10/30・11/2</b><br>Zoom 10/31（無料）</div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdTnBZvLDkLz8mxZlpvy0EAaDYRAW6gK1TN0wFcEdTABEP1nA/viewform" target="_blank" rel="noopener">申し込む</a>
+  </div>
+</div>
+
+</body>
+</html>
